@@ -21,7 +21,7 @@ public class AutoParking {
         System.out.println("Нет мест");
     }
 
-    public Transport parkOut(int number){
+    public Transport parkOutForNumber(int number){
         for (int i = 0; i < parkingPlace.length; i++) {
             if (parkingPlace[i] != null && parkingPlace[i].getNumber() == number){
                 System.out.println(parkingPlace[i]+" уехала с парковки");

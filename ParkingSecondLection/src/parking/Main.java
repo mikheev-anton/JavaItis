@@ -27,6 +27,10 @@ public class Main {
         autoParking.parkIn(new Car("VAZ", 942));
         autoParking.parkIn(new Car("Kia", 849));
 
+
+
         autoParking.moveAll();
+
+
     }
 }
