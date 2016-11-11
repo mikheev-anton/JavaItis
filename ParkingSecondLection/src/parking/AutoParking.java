@@ -25,6 +25,7 @@ public class AutoParking {
         for (int i = 0; i < parkingPlace.length; i++) {
             if (parkingPlace[i] != null && parkingPlace[i].getNumber() == number){
                 System.out.println(parkingPlace[i]+" уехала с парковки");
+                parkingPlace[i] = null;
                 return parkingPlace[i];
             }
         }
@@ -37,6 +38,7 @@ public class AutoParking {
         }
         if (parkingPlace[numberOfPlace] != null){
             System.out.println(parkingPlace[numberOfPlace]+" уехала с парковки");
+            parkingPlace[numberOfPlace] = null;
             return parkingPlace[numberOfPlace];
         }
 
@@ -49,6 +51,7 @@ public class AutoParking {
             if (parkingPlace[i] != null)
                 parkingPlace[i].move();
         }
+        parkingPlace = null;
         System.out.println("Парковка свободна!");
     }
 }
