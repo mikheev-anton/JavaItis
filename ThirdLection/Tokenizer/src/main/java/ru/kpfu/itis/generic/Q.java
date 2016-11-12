@@ -1,9 +1,9 @@
 package ru.kpfu.itis.generic;
 
 public class Q <X,Y,Z> {
-    private X x;
-    private Y y;
-    private Z z;
+    private Object x;
+    private Object y;
+    private Object z;
 
     public Q(X x, Y y, Z z) {
         this.x = x;
