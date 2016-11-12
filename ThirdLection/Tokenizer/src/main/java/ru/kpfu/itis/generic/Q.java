@@ -1,9 +1,9 @@
 package ru.kpfu.itis.generic;
 
-public class Q <X,Y,Z> {
-    private Object x;
-    private Object y;
-    private Object z;
+public class Q <X extends B,Y extends B,Z extends D> {
+    private X x;
+    private Y y;
+    private Z z;
 
     public Q(X x, Y y, Z z) {
         this.x = x;
@@ -13,22 +13,9 @@ public class Q <X,Y,Z> {
 
     public int allCalc(){
         int totalSum = 0;
-        totalSum += getSumByType(x);
-        totalSum += getSumByType(y);
-        totalSum += getSumByType(z);
+        totalSum += x.calc2();
+        totalSum += y.calc2();
+        totalSum += z.calc();
         return totalSum;
-    }
-
-    private int getSumByType(Object obj) {
-        int sum = 0;
-        if (obj instanceof D) {
-            D z = (D)obj;
-            sum = z.calc();
-        }
-        else if (obj instanceof B){
-            B z = (B)obj;
-            sum = z.calc2();
-        }
-        return sum;
     }
 }
