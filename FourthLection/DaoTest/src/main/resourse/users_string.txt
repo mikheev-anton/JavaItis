@@ -1,0 +1,3 @@
+0,Marsel, login, qwerty
+1,Nastya, 30kg, ytrewq
+2,Ilya, Lord, ewqrty

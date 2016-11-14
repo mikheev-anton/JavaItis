@@ -16,8 +16,20 @@ public class UsersDaoArrayListImpl implements UsersDao {
         return this.users;
     }
 
+    public void update(User user) {
+
+    }
+
     public void save(User user) {
-        User userForSave = new User(user.getName(), user.getLogin(), user.getPassword());
+        User userForSave = new User(user.getName(), user.getLogin(), user.getPassword(),user.getId());
         this.users.add(userForSave);
+    }
+
+    public User find(int id) {
+        return null;
+    }
+
+    public void delete(int id) {
+
     }
 }

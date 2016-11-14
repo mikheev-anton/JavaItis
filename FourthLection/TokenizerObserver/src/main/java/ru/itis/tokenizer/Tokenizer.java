@@ -65,6 +65,7 @@ public class Tokenizer implements TokenizerObservable {
                 onWord = true;
                 if (textAsCharArray.length-1==i)
                     notifyHandlers(new Letter(begin, i, currentToken.toString(),Character.isUpperCase(currentToken.charAt(0))));
+                continue;
             } else if (onWord) {
                 onWord = false;
                 i -= 1;
@@ -78,6 +79,7 @@ public class Tokenizer implements TokenizerObservable {
                 onNumber = true;
                 if (textAsCharArray.length-1==i)
                     notifyHandlers(new Number(begin, i, currentToken.toString(), Integer.valueOf(currentToken.toString())));
+                continue;
             } else if (onNumber) {
                 onNumber = false;
                 i -= 1;

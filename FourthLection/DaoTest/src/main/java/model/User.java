@@ -11,11 +11,13 @@ public class User implements Serializable {
     private String name;
     private String login;
     private String password;
+    private int id;
 
-    public User(String name, String login, String password) {
+    public User(String name, String login, String password, int id) {
         this.name = name;
         this.login = login;
         this.password = password;
+        this.id = id;
     }
 
     public String getName() {
@@ -42,6 +44,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -60,6 +70,7 @@ public class User implements Serializable {
 
         // return this.name.equals(that.name) && this.login.equals(that.login) && this.password.equals(that.password);
         return Objects.equal(this.name, that.name) &&
+                Objects.equal(this.id, that.id)&&
                 Objects.equal(this.login, that.login) &&
                 Objects.equal(this.password, that.password);
     }

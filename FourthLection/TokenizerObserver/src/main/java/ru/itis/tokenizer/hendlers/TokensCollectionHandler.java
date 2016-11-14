@@ -5,7 +5,6 @@ import ru.itis.tokenizer.observer.TokenHandler;
 import ru.itis.tokenizer.tokens.Token;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class TokensCollectionHandler implements TokenHandler {
