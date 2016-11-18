@@ -35,4 +35,8 @@ public interface UsersDao {
      * @param id
      */
     void delete(int id);
+
+    void clean();
+
+    boolean contains(int id);
 }

@@ -1,6 +1,7 @@
 import dao.UserDaoFileImpl;
 import dao.UserDaoFileStringImpl;
 import dao.UsersDao;
+import factories.ServiceFactory;
 import model.User;
 import service.UserService;
 import service.UserServiceImpl;
@@ -12,13 +13,11 @@ public class Program {
         User nastya = new User("Nastya", "nastyaLogin", "qwerty008",1);
         User ilya = new User("Ilya", "ilyaLogin", "qwerty009",2);
 
-        UsersDao usersDao = new UserDaoFileStringImpl("src\\main\\resourse\\users_string.txt");
-        System.out.println(marsel);
-        usersDao.save(marsel);
-        usersDao.save(nastya);
-        usersDao.save(ilya);
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
-        UserService userService = new UserServiceImpl(usersDao, new VerifierImpl());
+        userService.addUser(marsel);
+        userService.addUser(nastya);
+        userService.addUser(ilya);
 
         if (userService.isRegistered("Marsel")) {
             System.out.println("Marsel is Registered");

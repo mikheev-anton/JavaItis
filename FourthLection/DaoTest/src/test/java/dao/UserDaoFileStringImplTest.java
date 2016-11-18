@@ -19,7 +19,7 @@ public class UserDaoFileStringImplTest {
     @Before
     public void setUp() throws Exception {
         testingUsersDao = new UserDaoFileStringImpl(PATH);
-        testingUsersDao.cleanFile();
+        testingUsersDao.clean();
         prepareTestData();
     }
 
@@ -49,7 +49,12 @@ public class UserDaoFileStringImplTest {
 
     @Test
     public void testSave() throws Exception {
-
+        List<User> expected = TEST_DATA;
+        User e = new User("Saved", "SU", "jjgg", ID_VITYA + 1);
+        expected.add(e);
+        testingUsersDao.save(e);
+        List<User> actual = testingUsersDao.findAll();
+        assertEquals(expected, actual);
     }
 
     @Test

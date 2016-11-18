@@ -20,7 +20,7 @@ public class UserDaoFileImplTest {
     @Before
     public void setUp() throws Exception {
         testingUsersDao = new UserDaoFileImpl(PATH);
-        testingUsersDao.cleanFileAndCache();
+        testingUsersDao.clean();
         prepareTestData();
     }
 
@@ -44,7 +44,7 @@ public class UserDaoFileImplTest {
     @Test
     public void testSave() throws Exception {
         List<User> expected = TEST_DATA;
-        User e = new User("Saved", "SU", "jjgg", ID_ILYA + 1);
+        User e = new User("Saved", "SU", "jjgg", ID_VITYA + 1);
         expected.add(e);
 
         testingUsersDao.save(e);

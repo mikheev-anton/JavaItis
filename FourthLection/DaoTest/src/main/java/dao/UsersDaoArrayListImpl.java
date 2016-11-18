@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UsersDaoArrayListImpl implements UsersDao {
 
-    List<User> users;
+    private List<User> users;
 
     public UsersDaoArrayListImpl() {
         this.users = new ArrayList<User>();
@@ -17,7 +17,10 @@ public class UsersDaoArrayListImpl implements UsersDao {
     }
 
     public void update(User user) {
-
+        if (users.contains(user)){
+            users.remove(user.getId());
+        }
+        users.add(user);
     }
 
     public void save(User user) {
@@ -26,10 +29,24 @@ public class UsersDaoArrayListImpl implements UsersDao {
     }
 
     public User find(int id) {
-        return null;
+        return users.get(id);
     }
 
     public void delete(int id) {
+        users.remove(id);
+    }
 
+    @Override
+    public void clean() {
+        users.clear();
+    }
+
+    @Override
+    public boolean contains(int id) {
+        for (User u : users){
+            if (u.getId() == id)
+                return true;
+        }
+        return false;
     }
 }

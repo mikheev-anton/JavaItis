@@ -23,6 +23,7 @@ public class UsersDaoArrayListImplTest {
         testingUsersDao.save(MARSEL);
         testingUsersDao.save(NASTYA);
         testingUsersDao.save(ILYA);
+        testingUsersDao.save(VIIITYA);
     }
 
     @Test

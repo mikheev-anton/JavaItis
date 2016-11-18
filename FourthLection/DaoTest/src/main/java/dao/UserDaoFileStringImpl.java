@@ -43,7 +43,7 @@ public class UserDaoFileStringImpl implements UsersDao {
             boolean ouUser = false;
             boolean isCorrectUser = false;
             boolean isSaved = false;
-            char[] peaceOfUser = getRepresentString(user).replace("\n"," ").toCharArray();
+            char[] peaceOfUser = getStringRepresent(user).replace("\n"," ").toCharArray();
             int i = 2;
             while (reader.length() > 0){
                 char c = reader.readChar();
@@ -83,7 +83,7 @@ public class UserDaoFileStringImpl implements UsersDao {
     public void save(User user) {
         try (RandomAccessFile reader = new RandomAccessFile(file,"rw")){
             reader.seek(reader.length());
-            reader.writeChars(getRepresentString(user));
+            reader.writeChars(getStringRepresent(user));
         }catch (IOException e){
             System.out.println("Файл не найден");
         }
@@ -154,12 +154,29 @@ public class UserDaoFileStringImpl implements UsersDao {
         return new User(name, login, password, id);
     }
 
-    private String getRepresentString(User user) {
+    private String getStringRepresent(User user) {
         return " "+user.getId()+","+user.getName()+","+user.getLogin()+","+user.getPassword()+"\n";
     }
 
-    public void cleanFile(){
+    public void clean(){
         file.delete();
     }
 
+    @Override
+    public boolean contains(int id) {
+        try (RandomAccessFile reader = new RandomAccessFile(file,"rw")){
+            while (reader.getFilePointer() != reader.length()){
+                char c = reader.readChar();
+                if (c ==' '){
+                    int idUser = Integer.parseInt(String.valueOf(reader.readChar()));
+                    if (id == idUser){
+                        return true;
+                    }
+                }
+            }
+        }catch (IOException e){
+            System.out.println("Файл не найден");
+        }
+        return false;
+    }
 }

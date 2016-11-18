@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     private UsersDao usersDao;
     private Verifier verifier;
 
-    public UserServiceImpl(UsersDao usersDao, Verifier verifier) {
+    public UserServiceImpl(UsersDao usersDao, Verifier verifier){
         this.usersDao = usersDao;
         this.verifier = verifier;
     }
@@ -39,5 +39,11 @@ public class UserServiceImpl implements UserService {
     public User getUser(int id) {
         verifier.userExist(id);
         return usersDao.find(id);
+    }
+
+    @Override
+    public void update(User user) {
+        verifier.userExist(user.getId());
+        usersDao.update(user);
     }
 }

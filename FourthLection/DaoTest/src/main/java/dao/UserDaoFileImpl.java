@@ -90,11 +90,20 @@ public class UserDaoFileImpl implements UsersDao{
         }catch (IOException e){
             System.out.println("Не верный путь");
         }
-        return new ArrayList<User>();
+        return new ArrayList<>();
     }
 
-    public void cleanFileAndCache(){
+    public void clean(){
         cache.clear();
         writeAllUsers(new ArrayList<User>());
+    }
+
+    @Override
+    public boolean contains(int id) {
+        for (User u : cache){
+            if (u.getId() == id)
+                return true;
+        }
+        return false;
     }
 }
