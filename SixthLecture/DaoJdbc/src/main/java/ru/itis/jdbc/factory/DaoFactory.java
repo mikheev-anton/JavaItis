@@ -41,7 +41,7 @@ public class DaoFactory {
         return INSTANCE;
     }
 
-    public UserDao getDao(){
+    public UserDao getUserDao(){
         return userDao;
     }
 

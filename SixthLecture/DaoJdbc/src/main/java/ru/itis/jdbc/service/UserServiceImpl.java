@@ -1,7 +1,8 @@
 package ru.itis.jdbc.service;
 
-
+import ru.itis.jdbc.dao.UserDao;
 import ru.itis.jdbc.model.User;
+import ru.itis.jdbc.verify.Verifier;
 
 import java.util.List;
 
@@ -10,21 +11,35 @@ import java.util.List;
 // определенные алгоритмы в системе
 public class UserServiceImpl implements UserService {
 
+    private UserDao usersDao;
+    private Verifier verifier;
 
-    public UserServiceImpl(){
+    public UserServiceImpl(UserDao usersDao, Verifier verifier){
+        this.usersDao = usersDao;
+        this.verifier = verifier;
     }
 
     public boolean isRegistered(String name) {
-        return false;
+        return usersDao.isExist(name);
     }
 
     public void addUser(User user) {
+        usersDao.save(user);
     }
 
     public User getUser(int id) {
-       return null;
+        verifier.userExist(id);
+        return usersDao.find(id);
     }
 
+    @Override
     public void update(User user) {
+        verifier.userExist(user.getId());
+        usersDao.update(user);
+    }
+
+    @Override
+    public List<User> getUsersByCity(String cityName) {
+        return usersDao.getUsersByCity(cityName);
     }
 }

@@ -6,13 +6,17 @@ import ru.itis.jdbc.model.User;
 import java.util.List;
 
 public interface CarDao {
-    List<Car> findAllCars(int userId);
+    List<Car> findAllUserCars(int userId);
 
-    void update(Car car,int userId);
+    List<Car> findAll();
+
+    void update(Car car);
 
     void save(Car car, int userId);
 
-    Car find(int id, int userId);
+    Car find(int id);
 
-    void delete(int id, int userId);
+    void delete(int id);
+
+    List<Car> getCarsByCity(String userCity);
 }

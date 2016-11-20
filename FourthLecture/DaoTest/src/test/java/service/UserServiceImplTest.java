@@ -55,7 +55,6 @@ public class UserServiceImplTest {
     public void getUser() throws Exception {
         String actualName = userService.getUser(2).getName();
         String expectedName = "Vasya";
-        // проверяем, вызвал ли был вообще метод userExist
         verify(verifier).userExist(2);
         assertEquals(actualName, expectedName);
     }

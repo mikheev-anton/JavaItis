@@ -7,24 +7,24 @@ public class User {
 
     private final int id;
     private final String name;
-    private final String email;
-    private final String password;
+    private final int age;
+    private final String city;
 
     private List<Car> cars;
 
     public User(User user) {
-        this(user.getId(),user.getName(),user.getEmail(),user.getPassword());
+        this(user.getId(),user.getName(),user.getAge(),user.getCity());
     }
 
-    public User(String name, String email, String password) {
-        this(0,name,email,password);
+    public User(String name, int age, String city) {
+        this(0,name,age,city);
     }
 
-    public User(int id, String name, String email, String password) {
+    public User(int id, String name, int age, String city) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.password = password;
+        this.age = age;
+        this.city = city;
     }
 
     public int getId() {
@@ -35,12 +35,12 @@ public class User {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public int getAge() {
+        return age;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCity() {
+        return city;
     }
 
     public List<Car> getCars() {
@@ -51,6 +51,10 @@ public class User {
         return this.id == 0;
     }
 
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,21 +63,28 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
-        return !(email != null ? !email.equals(user.email) : user.email != null);
+        if (age != user.age) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        return !(city != null ? !city.equals(user.city) : user.city != null);
+
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (city != null ? city.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

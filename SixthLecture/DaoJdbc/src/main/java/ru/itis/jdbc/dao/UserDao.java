@@ -15,4 +15,9 @@ public interface UserDao {
     User find(int id);
 
     void delete(int id);
+
+    List<User> getUsersByCity(String cityName);
+
+    boolean isExist(String name);
+
 }

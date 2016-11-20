@@ -4,48 +4,44 @@ package ru.itis.jdbc.model;
 public class Car {
 
     private int id;
-    private String type;
     private String model;
-    private String number;
+    private int mileage;
     private int ownerId;
 
     public int getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getModel() {
         return model;
+    }
+
+    public int getMileage() {
+        return mileage;
     }
 
     public int getOwnerId() {
         return ownerId;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
     public boolean isNew(){
         return id == 0;
     }
 
+
+
     public Car(Car car) {
-        this(car.getId(),car.getType(),car.getModel(),car.getNumber(),car.getOwnerId());
+        this(car.getId(),car.getModel(),car.getMileage(),car.getOwnerId());
     }
 
-    public Car(String type, String model, String number, int ownerId) {
-        this(0,type, model, number, ownerId);
+    public Car(String model, int mileage, int ownerId) {
+        this(0, model, mileage, ownerId);
     }
 
-    public Car(int id, String type, String model, String number, int ownerId) {
+    public Car(int id, String model, int mileage, int ownerId) {
         this.id = id;
-        this.type = type;
         this.model = model;
-        this.number = number;
+        this.mileage = mileage;
         this.ownerId = ownerId;
     }
 
@@ -57,23 +53,26 @@ public class Car {
         Car car = (Car) o;
 
         if (id != car.id) return false;
-        return !(number != null ? !number.equals(car.number) : car.number != null);
+        if (mileage != car.mileage) return false;
+        return !(model != null ? !model.equals(car.model) : car.model != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (number != null ? number.hashCode() : 0);
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + mileage;
         return result;
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "type='" + type + '\'' +
+                "id=" + id +
                 ", model='" + model + '\'' +
-                ", number='" + number + '\'' +
+                ", mileage=" + mileage +
+                ", ownerId=" + ownerId +
                 '}';
     }
 }
