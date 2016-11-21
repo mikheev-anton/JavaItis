@@ -33,6 +33,12 @@ public class DaoFactory {
                 Constructor<?> carDaoConstructor = Class.forName(carDaoName).getConstructor(Connection.class);
                 carDao = (CarDao)carDaoConstructor.newInstance(connection);
             }
+            else if ("file".equals(type)){
+                Constructor userDaoConst = (Constructor)Class.forName(userDaoName).getConstructor(String.class);
+                userDao = (UserDao)userDaoConst.newInstance(PropertyLoader.getProperty("file.users.path"));
+                Constructor carDaoConst = (Constructor)Class.forName(carDaoName).getConstructor(String.class);
+                carDao = (CarDao) carDaoConst.newInstance(PropertyLoader.getProperty("file.cars.path"));
+            }
         } catch ( ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             throw new IllegalStateException(e);
         }
