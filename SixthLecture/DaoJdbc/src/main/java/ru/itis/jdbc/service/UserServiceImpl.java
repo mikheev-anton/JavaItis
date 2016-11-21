@@ -42,4 +42,19 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByCity(String cityName) {
         return usersDao.getUsersByCity(cityName);
     }
+
+    @Override
+    public List<User> getAll() {
+        return usersDao.findAll();
+    }
+
+    @Override
+    public void delete(int id) {
+        usersDao.delete(id);
+    }
+
+    @Override
+    public void save(User user) {
+        usersDao.save(user);
+    }
 }

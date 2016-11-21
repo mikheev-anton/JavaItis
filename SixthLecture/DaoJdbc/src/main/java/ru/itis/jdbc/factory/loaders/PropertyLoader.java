@@ -10,8 +10,8 @@ public class PropertyLoader {
     private static Properties properties;
 
     static {
-        IOC_CONFIG_FILE_PATH = "src\\main\\resources\\config.properties";
-        DB_CONFIG_FILE_PATH ="src\\main\\resources\\db\\db.properties";
+        IOC_CONFIG_FILE_PATH = "C:\\java_progect\\JavaItis\\SixthLecture\\DaoJdbc\\src\\main\\resources\\config.properties";
+        DB_CONFIG_FILE_PATH ="C:\\java_progect\\JavaItis\\SixthLecture\\DaoJdbc\\src\\main\\resources\\db\\db.properties";
         properties = new Properties();
     }
 

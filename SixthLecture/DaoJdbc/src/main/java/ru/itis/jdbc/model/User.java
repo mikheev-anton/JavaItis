@@ -2,6 +2,7 @@ package ru.itis.jdbc.model;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable {
@@ -26,6 +27,7 @@ public class User implements Serializable {
         this.name = name;
         this.age = age;
         this.city = city;
+        this.cars = new ArrayList<>();
     }
 
     public int getId() {

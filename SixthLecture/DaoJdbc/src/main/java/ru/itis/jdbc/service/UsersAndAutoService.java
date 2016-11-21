@@ -27,8 +27,10 @@ public class UsersAndAutoService implements UserService {
     public void addUser(User user) {
         List<Car> cars = user.getCars();
         userDao.save(user);
-        for (Car car : cars){
-            carDao.save(car, user.getId());
+        if (cars != null){
+            for (Car car : cars){
+                carDao.save(car, user.getId());
+            }
         }
     }
 
@@ -55,5 +57,28 @@ public class UsersAndAutoService implements UserService {
             user.setCars(carDao.findAllUserCars(user.getId()));
         }
         return usersByCity;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User> all = userDao.findAll();
+        for (User u : all){
+            u.setCars(carDao.findAllUserCars(u.getId()));
+        }
+        return all;
+    }
+
+    @Override
+    public void delete(int id) {
+        userDao.delete(id);
+    }
+
+    @Override
+    public void save(User user) {
+        List<Car> cars = user.getCars();
+        userDao.save(user);
+        for (Car c : cars){
+            carDao.save(c,user.getId());
+        }
     }
 }

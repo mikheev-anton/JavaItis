@@ -11,4 +11,7 @@ public interface UserService {
     User getUser(int id);
     void update(User user);
     public List<User> getUsersByCity(String cityName);
+    List<User> getAll();
+    void delete(int id);
+    void save(User user);
 }
