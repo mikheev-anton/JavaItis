@@ -1,14 +1,14 @@
-package dao;
+package ru.itis.jdbc.dao.file;
 
-import model.User;
+import ru.itis.jdbc.dao.UserDao;
+import ru.itis.jdbc.model.User;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-
-public class UserDaoFileImpl implements UsersDao{
+public class UserDaoFileImpl implements UserDao {
 
     private File path;
 
@@ -21,6 +21,11 @@ public class UserDaoFileImpl implements UsersDao{
     public UserDaoFileImpl(File path) {
         this.path = path;
         this.cache = readAllUsers();
+    }
+
+    @Override
+    public List<User> findAll() {
+        return cache;
     }
 
     @Override
@@ -39,8 +44,8 @@ public class UserDaoFileImpl implements UsersDao{
     public void save(User user) {
         if (!cache.contains(user)){
             cache.add(user);
-            writeAllUsers(cache);
         }
+        writeAllUsers(cache);
     }
 
     @Override
@@ -50,7 +55,7 @@ public class UserDaoFileImpl implements UsersDao{
                 return user;
             }
         }
-        return new User("null","null","null", -1);
+        return new User(0,"null",0, "null");
     }
 
     @Override
@@ -65,8 +70,41 @@ public class UserDaoFileImpl implements UsersDao{
         writeAllUsers(cache);
     }
 
-    public List<User> findAll(){
-        return readAllUsers();
+    @Override
+    public List<User> getUsersByCity(String cityName) {
+        List<User> users = new ArrayList<>();
+        for (User u : cache){
+            if (u.getCity().equals(cityName)){
+                users.add(u);
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public boolean isExist(String name) {
+        for (User u : cache){
+            if (u.getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<User> readAllUsers(){
+        List<User> arrayList;
+        try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(this.path))){
+            try {
+                arrayList = (ArrayList<User>)stream.readObject();
+                if (!arrayList.isEmpty())
+                    return arrayList;
+            }catch (ClassNotFoundException e){
+                System.out.println("User не найден");
+            }
+        }catch (IOException e){
+            System.out.println("Не верный путь");
+        }
+        return new ArrayList<>();
     }
 
     private void writeAllUsers(List<User> users){
@@ -75,35 +113,5 @@ public class UserDaoFileImpl implements UsersDao{
         }catch (IOException e){
             System.out.println("Не верный путь");
         }
-    }
-
-    private List<User> readAllUsers(){
-        List<User> arrayList;
-        try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(this.path))){
-                try {
-                    arrayList = (ArrayList<User>)stream.readObject();
-                    if (!arrayList.isEmpty())
-                    return arrayList;
-                }catch (ClassNotFoundException e){
-                    System.out.println("User не найден");
-                }
-        }catch (IOException e){
-            System.out.println("Не верный путь");
-        }
-        return new ArrayList<>();
-    }
-
-    public void clean(){
-        cache.clear();
-        writeAllUsers(new ArrayList<User>());
-    }
-
-    @Override
-    public boolean contains(int id) {
-        for (User u : cache){
-            if (u.getId() == id)
-                return true;
-        }
-        return false;
     }
 }

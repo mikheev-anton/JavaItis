@@ -1,9 +1,10 @@
 package ru.itis.jdbc.model;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
     private final int id;
     private final String name;

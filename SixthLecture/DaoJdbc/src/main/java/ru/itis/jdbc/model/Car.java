@@ -1,7 +1,9 @@
 package ru.itis.jdbc.model;
 
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
 
     private int id;
     private String model;
@@ -28,7 +30,9 @@ public class Car {
         return id == 0;
     }
 
-
+    public Car(Car car, int userId) {
+        this(car.getId(),car.getModel(),car.getMileage(), userId);
+    }
 
     public Car(Car car) {
         this(car.getId(),car.getModel(),car.getMileage(),car.getOwnerId());
