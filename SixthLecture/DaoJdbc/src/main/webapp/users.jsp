@@ -7,9 +7,6 @@
 </head>
 <body>
 <h2>User list</h2>
-<hr>
-<a href="users?action=create">Add User</a>
-<hr>
 <table border="1" cellpadding="8" cellspacing="0">
     <tr>
         <th>id</th>
@@ -24,10 +21,11 @@
             <td>${user.name}</td>
             <td>${user.age}</td>
             <td>${user.city}</td>
-            <td><a href="users?action=update&id=${user.id}">Update</a></td>
-            <td><a href="users?action=delete&id=${user.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
+<ul>
+    <li><a href="root?userId=${user.id}">My car list</a></li>
+</ul>
 </body>
 </html>

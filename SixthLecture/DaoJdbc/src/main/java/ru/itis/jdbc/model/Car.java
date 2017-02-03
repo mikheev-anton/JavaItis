@@ -1,52 +1,115 @@
 package ru.itis.jdbc.model;
 
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "cars")
 public class Car implements Serializable {
 
-    private int id;
-    private String model;
-    private int mileage;
-    private int ownerId;
+    @Id
+    @SequenceGenerator(name = "cars_tab_seq", sequenceName = "cars_tab_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cars_tab_seq")
+    @Access(value = AccessType.PROPERTY)
+    private Integer id;
 
-    public int getId() {
+    @Column(name = "car_model")
+    private String model;
+
+    @Column(name = "car_mileage")
+    private int mileage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    protected User owner;
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getModel() {
         return model;
     }
 
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public int getMileage() {
         return mileage;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 
-    public boolean isNew(){
-        return id == 0;
+    public User getOwner() {
+        return owner;
     }
 
-    public Car(Car car, int userId) {
-        this(car.getId(),car.getModel(),car.getMileage(), userId);
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    protected Car() {
+    }
+
+    public Car(Builder builder) {
+        this(builder.id,builder.model,builder.mileage, builder.owner);
+    }
+
+    public Car(Car car, User user) {
+        this(car.getId(),car.getModel(),car.getMileage(), user);
     }
 
     public Car(Car car) {
-        this(car.getId(),car.getModel(),car.getMileage(),car.getOwnerId());
+        this(car.getId(),car.getModel(),car.getMileage(), car.getOwner());
     }
 
-    public Car(String model, int mileage, int ownerId) {
-        this(0, model, mileage, ownerId);
+    public Car(String model, int mileage, User owner) {
+        this(0, model, mileage, owner);
     }
 
-    public Car(int id, String model, int mileage, int ownerId) {
+    public Car(int id, String model, int mileage, User owner) {
         this.id = id;
         this.model = model;
         this.mileage = mileage;
-        this.ownerId = ownerId;
+        this.owner = owner;
+    }
+
+    public static class Builder{
+        private int id;
+        private String model;
+        private int mileage;
+        private User owner;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setModel(String model) {
+            this.model = model;
+            return this;
+        }
+
+        public Builder setMileage(int mileage) {
+            this.mileage = mileage;
+            return this;
+        }
+
+        public Builder setOwnerId(User owner) {
+            this.owner = owner;
+            return this;
+        }
+        public Car build(){
+            return new Car(this);
+        }
     }
 
     @Override
@@ -76,7 +139,7 @@ public class Car implements Serializable {
                 "id=" + id +
                 ", model='" + model + '\'' +
                 ", mileage=" + mileage +
-                ", ownerId=" + ownerId +
+                ", ownerId=" + getOwner().getId() +
                 '}';
     }
 }

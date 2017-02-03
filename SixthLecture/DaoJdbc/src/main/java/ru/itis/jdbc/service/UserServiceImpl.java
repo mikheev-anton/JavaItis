@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser(String email) {
+        return usersDao.find(email);
+    }
+
+    @Override
     public void update(User user) {
         verifier.userExist(user.getId());
         usersDao.update(user);

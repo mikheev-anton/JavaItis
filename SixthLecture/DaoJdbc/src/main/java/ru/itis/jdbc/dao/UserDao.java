@@ -14,10 +14,11 @@ public interface UserDao {
 
     User find(int id);
 
+    User find(String email);
+
     void delete(int id);
 
     List<User> getUsersByCity(String cityName);
 
-    boolean isExist(String name);
-
+    boolean isExist(String email);
 }

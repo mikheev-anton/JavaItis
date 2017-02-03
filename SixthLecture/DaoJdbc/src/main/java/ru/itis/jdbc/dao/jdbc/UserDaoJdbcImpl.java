@@ -50,6 +50,8 @@ public class UserDaoJdbcImpl implements UserDao {
             statement.setString(1, user.getName());
             statement.setInt(2, user.getAge());
             statement.setString(3, user.getCity());
+            statement.setString(4,user.getEmail());
+            statement.setString(5,user.getPassword());
             statement.execute();
         }catch (SQLException e){
             throw new IllegalStateException(e);
@@ -65,12 +67,23 @@ public class UserDaoJdbcImpl implements UserDao {
 
             resultSet.next();
 
-            int userId = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            int age = resultSet.getInt("age");
-            String city = resultSet.getString("city");
+            return convertIntoUser(resultSet);
+        }catch (SQLException e){
+            throw new IllegalStateException(e);
+        }
+    }
 
-            return new User(userId,name,age,city);
+    @Override
+    public User find(String email) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(SQL_SELECT_USER_BY_EMAIL);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+
+            return convertIntoUser(resultSet);
         }catch (SQLException e){
             throw new IllegalStateException(e);
         }
@@ -105,10 +118,10 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
-    public boolean isExist(String name) {
+    public boolean isExist(String email) {
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_COUNT_USER);
-            statement.setString(1, name);
+            statement.setString(1, email);
 
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
@@ -124,6 +137,14 @@ public class UserDaoJdbcImpl implements UserDao {
         String name = resultSet.getString("name");
         int age = resultSet.getInt("age");
         String city = resultSet.getString("city");
-        return new User(id,name,age,city);
+        String password = resultSet.getString("password");
+        String email = resultSet.getString("email");
+        return new User.Builder()
+                .setId(id)
+                .setName(name)
+                .setAge(age)
+                .setPassword(password)
+                .setEmail(email)
+                .setCity(city).build();
     }
 }

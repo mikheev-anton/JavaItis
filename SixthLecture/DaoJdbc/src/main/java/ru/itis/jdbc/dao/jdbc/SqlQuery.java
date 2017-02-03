@@ -1,24 +1,25 @@
 package ru.itis.jdbc.dao.jdbc;
 
-
 public class SqlQuery {
 
     // language=SQL
     static final String SQL_SELECT_USER = "SELECT * FROM users_table WHERE id = ?;";
     // language=SQL
+    static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM users_table WHERE email = ?;";
+    // language=SQL
     static final String SQL_SELECT_USER_BY_CITY = "SELECT * FROM users_table WHERE city = ?;";
     // language=SQL
-    static final String SQL_INSERT_USER = "INSERT INTO users_table(name, age, city)" +
-            " VALUES(?, ?, ?);";
+    static final String SQL_INSERT_USER = "INSERT INTO users_table(name, age, city, email, password)" +
+            " VALUES(?, ?, ?, ?, ?);";
     // language=SQL
     static final String SQL_UPDATE_USER = "UPDATE users_table SET name = ?, age = ?, city = ?" +
             " WHERE id = ?";
     // language=SQL
     static final String SQL_DELETE_USER = "DELETE FROM users_table WHERE id=?";
     // language=SQL
-    static final String SELECT_ALL_USER = "SELECT * FROM users_table";
+    static final String SELECT_ALL_USER = "SELECT * FROM users_table ORDER BY id";
     // language=SQL
-    static final String SELECT_COUNT_USER = "SELECT COUNT(name) AS count FROM users_table WHERE name = ?;";
+    static final String SELECT_COUNT_USER = "SELECT COUNT(email) AS count FROM users_table WHERE email = ?;";
 
     // language=SQL
     static final String SQL_SELECT_CAR = "SELECT * FROM cars WHERE id = ?;";
@@ -33,7 +34,7 @@ public class SqlQuery {
     // language=SQL
     static final String SELECT_ALL_USERS_CARS = "SELECT * FROM cars WHERE user_id=?";
     // language=SQL
-    static final String SELECT_ALL_CARS = "SELECT * FROM cars";
+    static final String SELECT_ALL_CARS = "SELECT * FROM cars ORDER BY id";
     // language=SQL
     static final String SELECT_CARS_BY_CITY = "SELECT c.* FROM cars c RIGHT JOIN users_table u ON c.user_id = u.id WHERE u.city = ?;";
 }

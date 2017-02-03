@@ -55,7 +55,17 @@ public class UserDaoFileImpl implements UserDao {
                 return user;
             }
         }
-        return new User(0,"null",0, "null");
+        return new User.Builder().build();
+    }
+
+    @Override
+    public User find(String email) {
+        for (User user : cache){
+            if (user.getEmail().equals(email)){
+                return user;
+            }
+        }
+        return new User.Builder().build();
     }
 
     @Override

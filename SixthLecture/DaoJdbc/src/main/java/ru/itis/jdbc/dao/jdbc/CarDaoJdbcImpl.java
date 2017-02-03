@@ -70,21 +70,22 @@ public class CarDaoJdbcImpl implements CarDao {
     }
 
     public Car find(int id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CAR);
-            statement.setInt(1, id);
-
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            int carId = resultSet.getInt("id");
-            String model = resultSet.getString("car_model");
-            int mileage = resultSet.getInt("car_mileage");
-            int ownerId = resultSet.getInt("user_id");
-            return new Car(carId,model,mileage,ownerId);
-
-        }catch (SQLException e){
-            throw new IllegalStateException(e);
-        }
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(SQL_SELECT_CAR);
+//            statement.setInt(1, id);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//            resultSet.next();
+//            int carId = resultSet.getInt("id");
+//            String model = resultSet.getString("car_model");
+//            int mileage = resultSet.getInt("car_mileage");
+//            int ownerId = resultSet.getInt("user_id");
+//            return new Car(carId,model,mileage,ownerId);
+//
+//        }catch (SQLException e){
+//            throw new IllegalStateException(e);
+//        }
+        return null;
     }
 
     public void delete(int id) {
@@ -116,7 +117,7 @@ public class CarDaoJdbcImpl implements CarDao {
             String model = resultSet.getString("car_model");
             int mileage = resultSet.getInt("car_mileage");
             int ownerId = resultSet.getInt("user_id");
-            resultList.add(new Car(id,model,mileage,ownerId));
+//            resultList.add(new Car(id,model,mileage,ownerId));
         }
         return resultList;
     }

@@ -28,7 +28,7 @@ public class CarDaoFileImpl implements CarDao {
     public List<Car> findAllUserCars(int userId) {
         List<Car> cars = new ArrayList<>();
         for (Car c : cache){
-            if (c.getOwnerId() == userId){
+            if (c.getOwner().getId() == userId){
                 cars.add(c);
             }
         }
@@ -56,7 +56,7 @@ public class CarDaoFileImpl implements CarDao {
     @Override
     public void save(Car car, int userId) {
         if (!cache.contains(car)){
-            cache.add(new Car(car,userId));
+//            cache.add(new Car(car,userId));
         }
         writeAllUsers(cache);
     }
@@ -68,7 +68,7 @@ public class CarDaoFileImpl implements CarDao {
                 return car;
             }
         }
-        return new Car(0,"null",0, -1);
+        return new Car(0,"null",0, null);
     }
 
     @Override

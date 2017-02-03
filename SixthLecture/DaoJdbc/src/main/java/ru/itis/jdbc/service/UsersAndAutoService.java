@@ -1,6 +1,8 @@
 package ru.itis.jdbc.service;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.itis.jdbc.dao.CarDao;
 import ru.itis.jdbc.dao.UserDao;
 import ru.itis.jdbc.model.Car;
@@ -8,9 +10,13 @@ import ru.itis.jdbc.model.User;
 
 import java.util.List;
 
+@Service
 public class UsersAndAutoService implements UserService {
 
+    @Autowired
     private UserDao userDao;
+
+    @Autowired
     private CarDao carDao;
 
     public UsersAndAutoService(UserDao userDao, CarDao carDao) {
@@ -19,8 +25,8 @@ public class UsersAndAutoService implements UserService {
     }
 
     @Override
-    public boolean isRegistered(String name) {
-        return userDao.isExist(name);
+    public boolean isRegistered(String email) {
+        return userDao.isExist(email);
     }
 
     @Override
@@ -38,6 +44,13 @@ public class UsersAndAutoService implements UserService {
     public User getUser(int id) {
         User user = userDao.find(id);
         user.setCars(carDao.findAllUserCars(id));
+        return user;
+    }
+
+    @Override
+    public User getUser(String email) {
+        User user = userDao.find(email);
+        user.setCars(carDao.findAllUserCars(user.getId()));
         return user;
     }
 
